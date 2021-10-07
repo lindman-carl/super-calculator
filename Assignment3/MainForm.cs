@@ -15,6 +15,7 @@ namespace Assignment3
         private string name = "NoName";
         private BMICalculator bmiCalc = new BMICalculator();
         private SavingsCalculator savingsCalc = new SavingsCalculator();
+        private BMRCalculator bmrCalc = new BMRCalculator();
 
         public MainForm()
         {
@@ -26,21 +27,35 @@ namespace Assignment3
         {
             this.Text = "The Super Calculator by Carl Lindman";
 
-            // Input controls
+            // Init rbuttons
             rbtnUsUnit.Checked = true;
             rbtnFemale.Checked = true;
+            rbtnActivitySedentary.Checked = true; // humans are lazy by nature
+
+            // Init unit labels
             lblHeight.Text = "Height (ft, in)";
             lblWeight.Text = "Weight (lbs)";
 
-            // Output controls
+            // Initialize textboxes to be empty
+            // BMI
             txtHeight.Text = string.Empty;
             txtWeight.Text = string.Empty;
+
+            // Savings
+            txtInitialDeposit.Text = string.Empty;
+            txtMonthlyDeposit.Text = string.Empty;
+            txtGrowthRate.Text = string.Empty;
+            txtPeriod.Text = string.Empty;
+            txtFees.Text = string.Empty;
+
+            // BMR
+            txtAge.Text = string.Empty;
         }
 
         private bool ReadSavingsInput()
         {
             string failMessage = "";
-            bool success = true;
+            bool success;
 
             // Initial deposit
             double initialDeposit = ReadDouble(txtInitialDeposit.Text, out success);
@@ -104,7 +119,7 @@ namespace Assignment3
                 failMessage = "Invalid value in:\n\n" + failMessage;
 
                 // Show MessageBox with failMessage
-                MessageBox.Show(failMessage, "Error Invalid Input");
+                MessageBox.Show(failMessage, "Error (Savings) Invalid Input");
                 // Fail
                 return false;
             }
@@ -116,12 +131,122 @@ namespace Assignment3
 
         }
 
-        private double ReadDouble(string str,out bool success)
+        private bool ReadBMRInput()
+        {
+            string failMessage = "";
+            bool success;
+
+            // Weight
+            double weight = ReadDouble(txtWeight.Text, out success);
+            if (success)
+            {
+                bmrCalc.Weight = weight;
+            }
+            else
+            {
+                failMessage += "  Weight\n";
+            }
+
+            // Height
+            double height = ReadDouble(txtHeight.Text, out success);
+            if (success)
+            {
+                bmrCalc.Height = height;
+            }
+            else
+            {
+                failMessage += "  Height\n";
+            }
+
+            // Age
+            int age = ReadInt(txtAge.Text, out success);
+            if (success)
+            {
+                bmrCalc.Age = age;
+            }
+            else
+            {
+                failMessage += "  Age\n";
+            }
+
+            // Gender
+            if (rbtnFemale.Checked)
+            {
+                bmrCalc.Female = true;
+            }
+            else
+            {
+                // If female is not checked then we must be a male (this could be somewhat controversial depending on who you ask)
+                bmrCalc.Female = false;
+            }
+
+            // Activity level
+            bmrCalc.ActivityLevel = ReadActivityLevel();
+
+            // If failMessage is not empty then it means we failed somewhere
+            if (!String.IsNullOrEmpty(failMessage))
+            {
+                // Add message to beginning of failMessage
+                failMessage = "Invalid value in:\n\n" + failMessage;
+
+                // Show MessageBox with failMessage
+                MessageBox.Show(failMessage, "Error (BMR) Invalid Input");
+                // Fail
+                return false;
+            }
+            else
+            {
+                // Success
+                return true;
+            }
+        }
+        private int ReadActivityLevel()
+        {
+            int level = -1;
+            // Extensive use of if else statements are not recommended for people with weak hearts. Actually, probaly not for anyone
+            if (rbtnActivitySedentary.Checked)
+            {
+                level = 0;
+            } 
+            else if (rbtnActivityLight.Checked)
+            {
+                level = 1;
+            }
+            else if (rbtnActivityModerate.Checked) 
+            {
+                level = 2;
+            }
+            else if (rbtnActivityVery.Checked)
+            {
+                level = 3;
+            } 
+            else if (rbtnActivityExtra.Checked)
+            {
+                level = 4;
+            }
+
+            return level;
+        }
+
+        private double ReadDouble(string str, out bool success)
         {
             double value = -1.00;
             success = false;
 
             if (double.TryParse(str, out value))
+            {
+                success = true;
+            }
+
+            return value;
+        }
+
+        private int ReadInt(string str, out bool success)
+        {
+            int value = -1;
+            success = false;
+
+            if (int.TryParse(str, out value))
             {
                 success = true;
             }
@@ -201,7 +326,6 @@ namespace Assignment3
         private bool ReadInputBMI()
         {
             ReadName();
-            ReadUnit();
             ReadHeight();
             ReadWeight();
             // TODO: Implement input validation
@@ -287,6 +411,10 @@ namespace Assignment3
                 lblHeight.Text = "Height (cm)";
                 lblWeight.Text = "Weight (kg)";
 
+                // Sets unit in calculators
+                bmiCalc.Unit = UnitTypes.Metric;
+                bmrCalc.Unit = UnitTypes.Metric;
+
                 // Hides feet textbox
                 txtHeightFt.Hide();
             } 
@@ -295,10 +423,21 @@ namespace Assignment3
                 lblHeight.Text = "Height (ft, in)";
                 lblWeight.Text = "Weight (lbs)";
 
+                // Sets unit in calculators
+                bmiCalc.Unit = UnitTypes.American;
+                bmrCalc.Unit = UnitTypes.American;
+
                 // Show feet textbox
                 txtHeightFt.Show();
             }
+
+            // Clear input fields
+            txtHeight.Text = string.Empty;
+            txtHeightFt.Text = string.Empty;
+            txtWeight.Text = string.Empty;
+
         }
+
 
         private void DisplaySavings()
         {
@@ -321,9 +460,38 @@ namespace Assignment3
             }
         }
 
+        private void DisplayBMR()
+        {
+            double[] values = bmrCalc.GetValues();
+            double bmr = values[0];
+            double maintainWeight = values[1];
+
+            listBoxBMR.Items.Clear();
+            listBoxBMR.Items.Add($"BMR RESULTS FOR {name}\n");
+            listBoxBMR.Items.Add("");
+            listBoxBMR.Items.Add($"Your BMR (calories/day) {bmr}");
+            listBoxBMR.Items.Add($"Calories to maintain your weight {maintainWeight}");
+            listBoxBMR.Items.Add($"Calories to lose 0,5 kg per week {maintainWeight - 500}");
+            listBoxBMR.Items.Add($"Calories to lose 1 kg per week {maintainWeight - 1000}");
+            listBoxBMR.Items.Add($"Calories to gain 0,5 kg per week {maintainWeight + 500}");
+            listBoxBMR.Items.Add($"Calories to gain 1 kg per week {maintainWeight + 1000}");
+            listBoxBMR.Items.Add("");
+            listBoxBMR.Items.Add("Losing more than 1000 calories per day is to be avoided"); // i guess you mean losing more than 1 kg, but oh well
+        }
+        private void btnCalcBMR_Click(object sender, EventArgs e)
+        {
+            if (ReadBMRInput())
+            {
+                // If successful
+                DisplayBMR();
+            }
+        }
+
+
         private void MainForm_Load(object sender, EventArgs e)
         {
 
         }
+
     }
 }

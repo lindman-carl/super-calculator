@@ -75,6 +75,16 @@ namespace Assignment3
             this.groupBoxGender = new System.Windows.Forms.GroupBox();
             this.rbtnFemale = new System.Windows.Forms.RadioButton();
             this.rbtnMale = new System.Windows.Forms.RadioButton();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtAge = new System.Windows.Forms.TextBox();
+            this.groupBoxActivityLevel = new System.Windows.Forms.GroupBox();
+            this.rbtnActivitySedentary = new System.Windows.Forms.RadioButton();
+            this.rbtnActivityLight = new System.Windows.Forms.RadioButton();
+            this.rbtnActivityModerate = new System.Windows.Forms.RadioButton();
+            this.rbtnActivityVery = new System.Windows.Forms.RadioButton();
+            this.rbtnActivityExtra = new System.Windows.Forms.RadioButton();
+            this.btnCalcBMR = new System.Windows.Forms.Button();
+            this.listBoxBMR = new System.Windows.Forms.ListBox();
             this.groupBoxUnit.SuspendLayout();
             this.groupBoxResults.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -82,6 +92,7 @@ namespace Assignment3
             this.groupBoxFutureValue.SuspendLayout();
             this.groupBoxBMR.SuspendLayout();
             this.groupBoxGender.SuspendLayout();
+            this.groupBoxActivityLevel.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblName
@@ -495,10 +506,15 @@ namespace Assignment3
             // 
             // groupBoxBMR
             // 
+            this.groupBoxBMR.Controls.Add(this.listBoxBMR);
+            this.groupBoxBMR.Controls.Add(this.btnCalcBMR);
+            this.groupBoxBMR.Controls.Add(this.groupBoxActivityLevel);
+            this.groupBoxBMR.Controls.Add(this.txtAge);
+            this.groupBoxBMR.Controls.Add(this.label6);
             this.groupBoxBMR.Controls.Add(this.groupBoxGender);
             this.groupBoxBMR.Location = new System.Drawing.Point(12, 348);
             this.groupBoxBMR.Name = "groupBoxBMR";
-            this.groupBoxBMR.Size = new System.Drawing.Size(747, 205);
+            this.groupBoxBMR.Size = new System.Drawing.Size(747, 198);
             this.groupBoxBMR.TabIndex = 13;
             this.groupBoxBMR.TabStop = false;
             this.groupBoxBMR.Text = "BMR Calculator";
@@ -509,7 +525,7 @@ namespace Assignment3
             this.groupBoxGender.Controls.Add(this.rbtnFemale);
             this.groupBoxGender.Location = new System.Drawing.Point(7, 20);
             this.groupBoxGender.Name = "groupBoxGender";
-            this.groupBoxGender.Size = new System.Drawing.Size(200, 100);
+            this.groupBoxGender.Size = new System.Drawing.Size(119, 74);
             this.groupBoxGender.TabIndex = 0;
             this.groupBoxGender.TabStop = false;
             this.groupBoxGender.Text = "Gender";
@@ -536,11 +552,115 @@ namespace Assignment3
             this.rbtnMale.Text = "Male";
             this.rbtnMale.UseVisualStyleBackColor = true;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(7, 101);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(26, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Age";
+            // 
+            // txtAge
+            // 
+            this.txtAge.Location = new System.Drawing.Point(56, 98);
+            this.txtAge.Name = "txtAge";
+            this.txtAge.Size = new System.Drawing.Size(70, 20);
+            this.txtAge.TabIndex = 2;
+            this.txtAge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // groupBoxActivityLevel
+            // 
+            this.groupBoxActivityLevel.Controls.Add(this.rbtnActivityExtra);
+            this.groupBoxActivityLevel.Controls.Add(this.rbtnActivityVery);
+            this.groupBoxActivityLevel.Controls.Add(this.rbtnActivityModerate);
+            this.groupBoxActivityLevel.Controls.Add(this.rbtnActivityLight);
+            this.groupBoxActivityLevel.Controls.Add(this.rbtnActivitySedentary);
+            this.groupBoxActivityLevel.Location = new System.Drawing.Point(133, 20);
+            this.groupBoxActivityLevel.Name = "groupBoxActivityLevel";
+            this.groupBoxActivityLevel.Size = new System.Drawing.Size(254, 141);
+            this.groupBoxActivityLevel.TabIndex = 3;
+            this.groupBoxActivityLevel.TabStop = false;
+            this.groupBoxActivityLevel.Text = "Weekly activity level";
+            // 
+            // rbtnActivitySedentary
+            // 
+            this.rbtnActivitySedentary.AutoSize = true;
+            this.rbtnActivitySedentary.Location = new System.Drawing.Point(7, 20);
+            this.rbtnActivitySedentary.Name = "rbtnActivitySedentary";
+            this.rbtnActivitySedentary.Size = new System.Drawing.Size(170, 17);
+            this.rbtnActivitySedentary.TabIndex = 0;
+            this.rbtnActivitySedentary.TabStop = true;
+            this.rbtnActivitySedentary.Text = "Sedentary, Little or no exercise";
+            this.rbtnActivitySedentary.UseVisualStyleBackColor = true;
+            // 
+            // rbtnActivityLight
+            // 
+            this.rbtnActivityLight.AutoSize = true;
+            this.rbtnActivityLight.Location = new System.Drawing.Point(7, 44);
+            this.rbtnActivityLight.Name = "rbtnActivityLight";
+            this.rbtnActivityLight.Size = new System.Drawing.Size(228, 17);
+            this.rbtnActivityLight.TabIndex = 1;
+            this.rbtnActivityLight.TabStop = true;
+            this.rbtnActivityLight.Text = "Lightly active, Exercise 1 to 3 times a week";
+            this.rbtnActivityLight.UseVisualStyleBackColor = true;
+            // 
+            // rbtnActivityModerate
+            // 
+            this.rbtnActivityModerate.AutoSize = true;
+            this.rbtnActivityModerate.Location = new System.Drawing.Point(7, 68);
+            this.rbtnActivityModerate.Name = "rbtnActivityModerate";
+            this.rbtnActivityModerate.Size = new System.Drawing.Size(244, 17);
+            this.rbtnActivityModerate.TabIndex = 2;
+            this.rbtnActivityModerate.TabStop = true;
+            this.rbtnActivityModerate.Text = "Moderatly active, Exercise 4 to 5 times a week";
+            this.rbtnActivityModerate.UseVisualStyleBackColor = true;
+            // 
+            // rbtnActivityVery
+            // 
+            this.rbtnActivityVery.AutoSize = true;
+            this.rbtnActivityVery.Location = new System.Drawing.Point(7, 92);
+            this.rbtnActivityVery.Name = "rbtnActivityVery";
+            this.rbtnActivityVery.Size = new System.Drawing.Size(219, 17);
+            this.rbtnActivityVery.TabIndex = 3;
+            this.rbtnActivityVery.TabStop = true;
+            this.rbtnActivityVery.Text = "Very active, Exercise 6 to 7 times a week";
+            this.rbtnActivityVery.UseVisualStyleBackColor = true;
+            // 
+            // rbtnActivityExtra
+            // 
+            this.rbtnActivityExtra.AutoSize = true;
+            this.rbtnActivityExtra.Location = new System.Drawing.Point(7, 116);
+            this.rbtnActivityExtra.Name = "rbtnActivityExtra";
+            this.rbtnActivityExtra.Size = new System.Drawing.Size(222, 17);
+            this.rbtnActivityExtra.TabIndex = 4;
+            this.rbtnActivityExtra.TabStop = true;
+            this.rbtnActivityExtra.Text = "Extra active, Hard exercise or physical job";
+            this.rbtnActivityExtra.UseVisualStyleBackColor = true;
+            // 
+            // btnCalcBMR
+            // 
+            this.btnCalcBMR.Location = new System.Drawing.Point(83, 167);
+            this.btnCalcBMR.Name = "btnCalcBMR";
+            this.btnCalcBMR.Size = new System.Drawing.Size(212, 23);
+            this.btnCalcBMR.TabIndex = 4;
+            this.btnCalcBMR.Text = "Calculate BMR";
+            this.btnCalcBMR.UseVisualStyleBackColor = true;
+            this.btnCalcBMR.Click += new System.EventHandler(this.btnCalcBMR_Click);
+            // 
+            // listBoxBMR
+            // 
+            this.listBoxBMR.FormattingEnabled = true;
+            this.listBoxBMR.Location = new System.Drawing.Point(393, 26);
+            this.listBoxBMR.Name = "listBoxBMR";
+            this.listBoxBMR.Size = new System.Drawing.Size(348, 134);
+            this.listBoxBMR.TabIndex = 5;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 560);
+            this.ClientSize = new System.Drawing.Size(775, 550);
             this.Controls.Add(this.groupBoxBMR);
             this.Controls.Add(this.groupBoxFutureValue);
             this.Controls.Add(this.btnCalcSavings);
@@ -566,8 +686,11 @@ namespace Assignment3
             this.groupBoxFutureValue.ResumeLayout(false);
             this.groupBoxFutureValue.PerformLayout();
             this.groupBoxBMR.ResumeLayout(false);
+            this.groupBoxBMR.PerformLayout();
             this.groupBoxGender.ResumeLayout(false);
             this.groupBoxGender.PerformLayout();
+            this.groupBoxActivityLevel.ResumeLayout(false);
+            this.groupBoxActivityLevel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -620,6 +743,16 @@ namespace Assignment3
         private System.Windows.Forms.GroupBox groupBoxGender;
         private System.Windows.Forms.RadioButton rbtnMale;
         private System.Windows.Forms.RadioButton rbtnFemale;
+        private System.Windows.Forms.ListBox listBoxBMR;
+        private System.Windows.Forms.Button btnCalcBMR;
+        private System.Windows.Forms.GroupBox groupBoxActivityLevel;
+        private System.Windows.Forms.RadioButton rbtnActivityVery;
+        private System.Windows.Forms.RadioButton rbtnActivityModerate;
+        private System.Windows.Forms.RadioButton rbtnActivityLight;
+        private System.Windows.Forms.RadioButton rbtnActivitySedentary;
+        private System.Windows.Forms.TextBox txtAge;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.RadioButton rbtnActivityExtra;
     }
 }
 

@@ -103,7 +103,7 @@ namespace Assignment3
         }
         private string GetWeightCategoryLabel(double bmi)
         {
-            string category = "";
+            string category;
 
             // Why not return in each if statement? Because I used the category variable to concat a longer string and now I'm too lazy to change it
             if (bmi < 18.5)

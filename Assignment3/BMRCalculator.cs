@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assignment3
+﻿namespace Assignment3
 {
     class BMRCalculator
     {
@@ -59,8 +53,8 @@ namespace Assignment3
                 }
                 else
                 {
-                    // COnvert!!!!!
-                    weight = value;
+                    // Convert lbs to kg
+                    weight = value * 0.45359237;
                 }
             }
         }
@@ -75,8 +69,8 @@ namespace Assignment3
                 }
                 else
                 {
-                    // CONVERT!
-                    height = value;
+                    // Convert inches to cm
+                    height = value * 2.54;
                 }
             }
         }

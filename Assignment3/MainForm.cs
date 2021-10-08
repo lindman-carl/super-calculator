@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Assignment3
@@ -13,6 +6,8 @@ namespace Assignment3
     public partial class MainForm : Form
     {
         private string name = "NoName";
+
+        // Calculators
         private BMICalculator bmiCalc = new BMICalculator();
         private SavingsCalculator savingsCalc = new SavingsCalculator();
         private BMRCalculator bmrCalc = new BMRCalculator();
@@ -52,7 +47,112 @@ namespace Assignment3
             txtAge.Text = string.Empty;
         }
 
-        private bool ReadSavingsInput()
+        // BMI Calculator
+        private bool ReadInputBMI()
+        {
+            string failMessage = "";
+            bool success;
+
+            // Name
+            ReadName();
+
+            // Weight
+            double weight = ReadDouble(txtWeight.Text, out success);
+            if (success)
+            {
+                bmiCalc.Weight = weight;
+            }
+            else
+            {
+                failMessage += "  Weight\n";
+            }
+
+            // Height
+            // if ReadHeight returns -1.00 then we know it failed and we append the fail string to the failMessage
+            double height = ReadHeight();
+            if (height != -1.00)
+            {
+                bmiCalc.Height = height;
+            }
+            else
+            {
+                failMessage += "  Height";
+            }
+
+            // Evaluate if we failed the input
+            return EvaluateInput(failMessage, "BMI");
+
+        }
+        private void DisplayBMI()
+        {
+            // Calculate bmi
+            double bmi = bmiCalc.CalculateBMI();
+
+            // Set label
+            lblBMI.Text = $"{bmi,4:F2}";
+
+            // Set bmi category label
+            lblWeightCategory.Text = GetWeightCategoryLabel(bmi);
+
+            // Set normal range label
+            lblNormalRange.Text = GetNormalRangeLabel();
+
+
+            // Bugtesting
+            Console.WriteLine($"Calc!\nName: {name}\nHeight: {bmiCalc.Height}\nWeight: {bmiCalc.Weight}\nBMI: {bmi,4:F2}");
+        }
+        private string GetWeightCategoryLabel(double bmi)
+        {
+            string category = "";
+
+            // Why not return in each if statement? Because I used the category variable to concat a longer string and now I'm too lazy to change it
+            if (bmi < 18.5)
+            {
+                // Too low bmi
+                category = "Underweight";
+            }
+            else if (bmi <= 24.9)
+            {
+                // Good bmi
+                category = "Normal";
+            }
+            else if (bmi < 30)
+            {
+                // Too high bmi
+                category = "Overweight";
+            }
+            else
+            {
+                //:(
+                category = "Obese";
+            }
+
+            return category;
+        }
+        private string GetNormalRangeLabel()
+        {
+            // Gets normal bmi range from bmiCalc in an array
+            double[] range = bmiCalc.CalculateNormalBMI();
+            string text = "Normal weight should be between ";
+
+            if (bmiCalc.Unit == UnitTypes.Metric)
+                text += $"{range[0]:F2} and {range[1]:F2} kg";
+            else
+                text += $"{range[0]:F2} and {range[1]:F2} lbs";
+
+            return text;
+        }
+        private void btnCalculateBMI_Click(object sender, EventArgs e)
+        {
+            bool ok = ReadInputBMI();
+            if (ok)
+            {
+                DisplayBMI();
+            }
+        }
+
+        // Savings Calculator
+        private bool ReadInputSavings()
         {
             string failMessage = "";
             bool success;
@@ -112,29 +212,37 @@ namespace Assignment3
                 failMessage += "  Fees\n";
             }
 
-            // If failMessage is not empty then it means we failed somewhere
-            if (!String.IsNullOrEmpty(failMessage))
-            {
-                // Add message to beginning of failMessage
-                failMessage = "Invalid value in:\n\n" + failMessage;
+            // Evaluate if we failed the input
+            return EvaluateInput(failMessage, "Savings");
+        }
+        private void DisplaySavings()
+        {
+            // Calculate savings
+            double[] savings = savingsCalc.CalculateSavings();
 
-                // Show MessageBox with failMessage
-                MessageBox.Show(failMessage, "Error (Savings) Invalid Input");
-                // Fail
-                return false;
-            }
-            else
+            // Set labels
+            lblAmountPaid.Text = savings[0].ToString("F2");
+            lblAmountEarned.Text = savings[1].ToString("F2");
+            lblFinalBalance.Text = savings[2].ToString("F2");
+            lblTotalFees.Text = savings[3].ToString("F2");
+        }
+        private void btnCalcSavings_Click(object sender, EventArgs e)
+        {
+            if (ReadInputSavings())
             {
-                // Success
-                return true;
+                // If successful
+                DisplaySavings();
             }
-
         }
 
-        private bool ReadBMRInput()
+        // BMR Calculator
+        private bool ReadInputBMR()
         {
             string failMessage = "";
             bool success;
+
+            // Name
+            ReadName();
 
             // Weight
             double weight = ReadDouble(txtWeight.Text, out success);
@@ -148,14 +256,15 @@ namespace Assignment3
             }
 
             // Height
-            double height = ReadDouble(txtHeight.Text, out success);
-            if (success)
+            // if ReadHeight returns -1.00 then we know it failed and we append the fail string to the failMessage
+            double height = ReadHeight();
+            if (height != -1.00)
             {
                 bmrCalc.Height = height;
             }
             else
             {
-                failMessage += "  Height\n";
+                failMessage += "  Height";
             }
 
             // Age
@@ -183,21 +292,32 @@ namespace Assignment3
             // Activity level
             bmrCalc.ActivityLevel = ReadActivityLevel();
 
-            // If failMessage is not empty then it means we failed somewhere
-            if (!String.IsNullOrEmpty(failMessage))
-            {
-                // Add message to beginning of failMessage
-                failMessage = "Invalid value in:\n\n" + failMessage;
+            // Evaluate if we failed the input
+            return EvaluateInput(failMessage, "BMR");
+        }
+        private void DisplayBMR()
+        {
+            double[] values = bmrCalc.GetValues();
+            double bmr = values[0];
+            double maintainWeight = values[1];
 
-                // Show MessageBox with failMessage
-                MessageBox.Show(failMessage, "Error (BMR) Invalid Input");
-                // Fail
-                return false;
-            }
-            else
+            listBoxBMR.Items.Clear();
+            listBoxBMR.Items.Add($"BMR RESULTS FOR {name}\n");
+            listBoxBMR.Items.Add("");
+            listBoxBMR.Items.Add($"Your BMR (calories/day)            {bmr:F0}");
+            listBoxBMR.Items.Add($"Calories to maintain your weight   {maintainWeight:F0}");
+            listBoxBMR.Items.Add($"Calories to lose 0,5 kg per week   {maintainWeight - 500:F0}");
+            listBoxBMR.Items.Add($"Calories to lose 1 kg per week     {maintainWeight - 1000:F0}");
+            listBoxBMR.Items.Add($"Calories to gain 0,5 kg per week   {maintainWeight + 500:F0}");
+            listBoxBMR.Items.Add($"Calories to gain 1 kg per week     {maintainWeight + 1000:F0}");
+            listBoxBMR.Items.Add("Losing more than 1000 calories/day is to be avoided"); // how you can lose calories i don't get, but oh well
+        }
+        private void btnCalcBMR_Click(object sender, EventArgs e)
+        {
+            if (ReadInputBMR())
             {
-                // Success
-                return true;
+                // If successful
+                DisplayBMR();
             }
         }
         private int ReadActivityLevel()
@@ -228,25 +348,25 @@ namespace Assignment3
             return level;
         }
 
+        // Functions for parsing integers and doubles
         private double ReadDouble(string str, out bool success)
         {
             double value = -1.00;
             success = false;
 
-            if (double.TryParse(str, out value))
+            if (double.TryParse(str.Trim(), out value))
             {
                 success = true;
             }
 
             return value;
         }
-
         private int ReadInt(string str, out bool success)
         {
             int value = -1;
             success = false;
 
-            if (int.TryParse(str, out value))
+            if (int.TryParse(str.Trim(), out value))
             {
                 success = true;
             }
@@ -254,155 +374,74 @@ namespace Assignment3
             return value;
         }
 
+        // Generic input readers
         private void ReadName()
         {
             txtName.Text.Trim();
             if (!string.IsNullOrEmpty(txtName.Text))
             {
-                bmiCalc.Name = txtName.Text;
-            } else
-            {
-                bmiCalc.Name = "Unknown";
-            }
-
-            groupBoxResults.Text = $"Results for {bmiCalc.Name}";
-        }
-
-        private void ReadHeight()
-        {
-            // local height variable
-            double height = 0;
-
-            // Trim text
-            txtHeight.Text.Trim();
-            txtHeightFt.Text.Trim();
-
-            // Parse text as double
-            if (Double.TryParse(txtHeight.Text, out double result))
-            {
-                height = result;
-            }
-
-            // include feet if american
-            if (bmiCalc.Unit == UnitTypes.American)
-            {
-                // Parse text as double
-                if (Double.TryParse(txtHeightFt.Text, out double ftResult))
-                {
-                    height += ftResult * 12;
-                }
-            }
-
-            // Will return 0 if input is invalid
-            bmiCalc.Height = height;
-
-        }
-
-        private void ReadWeight()
-        {
-            txtWeight.Text.Trim();
-            // Parse text as double
-            if (Double.TryParse(txtWeight.Text, out double result))
-            {
-                bmiCalc.Weight = result;
-            }
-            else
-            {
-                bmiCalc.Weight = 0;
-            }
-        }
-
-        private void ReadUnit()
-        {
-            // Check which radiobutton is checked and set bmiCalc.Unit
-            if (rbtnMetricUnit.Checked)
-            {
-                bmiCalc.Unit = UnitTypes.Metric;
-            } else if (rbtnUsUnit.Checked) {
-                bmiCalc.Unit = UnitTypes.American;
-            }
-        }
-
-        private bool ReadInputBMI()
-        {
-            ReadName();
-            ReadHeight();
-            ReadWeight();
-            // TODO: Implement input validation
-            return true;
-        }
-
-        private void DisplayBMI()
-        {
-            // Calculate bmi
-            double bmi = bmiCalc.CalculateBMI();
-
-            // Set label
-            lblBMI.Text = $"{bmi,4:F2}";
-
-            // Set bmi category label
-            lblWeightCategory.Text = GetWeightCategoryLabel(bmi);
-
-            // Set normal range label
-            lblNormalRange.Text = GetNormalRangeLabel();
-
-
-            // Bugtesting
-            Console.WriteLine($"Calc!\nName: {bmiCalc.Name}\nHeight: {bmiCalc.Height}\nWeight: {bmiCalc.Weight}\nBMI: {bmi,4:F2}");
-        }
-
-        private string GetWeightCategoryLabel(double bmi)
-        {
-            string category = "";
-
-            // Why not return in each if statement? Because I used the category variable to concat a longer string and now I'm too lazy to change it
-            if (bmi < 18.5)
-            {
-                // Too low bmi
-                category = "Underweight";
-            }
-            else if (bmi <= 24.9)
-            {
-                // Good bmi
-                category = "Normal";
-            }
-            else if (bmi < 30)
-            {
-                // Too high bmi
-                category = "Overweight";
+                name = txtName.Text;
             } 
             else
             {
-                //:(
-                category = "Obese";
+                name = "NoName";
             }
 
-            return category;
+            groupBoxResults.Text = $"Results for {name}";
         }
-
-        private string GetNormalRangeLabel()
+        private double ReadHeight()
         {
-            // Gets normal bmi range from bmiCalc in an array
-            double[] range = bmiCalc.CalculateNormalBMI();
-            string text = "Normal weight should be between "; 
+            bool success, successFt;
 
-            if (bmiCalc.Unit == UnitTypes.Metric)
-                text += $"{range[0]:F2} and {range[1]:F2} kg";
-            else
-                text += $"{range[0]:F2} and {range[1]:F2} lbs";
-
-            return text;
-        }
-
-        private void btnCalculateBMI_Click(object sender, EventArgs e)
-        {
-            bool ok = ReadInputBMI();
-            if (ok)
+            // Height
+            double height = ReadDouble(txtHeight.Text, out success);
+            double heightFt = ReadDouble(txtHeightFt.Text, out successFt);
+            if (success)
             {
-                DisplayBMI();
+                // If feet has also been input then we have to check that aswell, this could also be checked by unittype but that would be over-engineering
+                if (successFt)
+                {
+                    return height + (heightFt * 12);
+                }
+                else
+                {
+                    return height;
+                }
+            }
+            else if (successFt)
+            {
+                return heightFt * 12;
+            }
+            else
+            {
+                return -1.00;
             }
         }
 
+        // Function for evaluating input
+        private bool EvaluateInput(string failMessage, string calculatorName)
+        {
+            // I use this in all calculators so I made it a seperate function
+
+            // If failMessage is not empty then it means we failed somewhere
+            if (!String.IsNullOrEmpty(failMessage))
+            {
+                // Add message to beginning of failMessage
+                failMessage = "Invalid value in:\n\n" + failMessage;
+
+                // Show MessageBox with failMessage
+                MessageBox.Show(failMessage, $"Error in {calculatorName} Invalid Input");
+                // Fail
+                return false;
+            }
+            else
+            {
+                // Success
+                return true;
+            }
+        }
+
+        // Eventhandler for changing unit
         private void radioButtonsUnit_CheckChanged(object sender, EventArgs e)
         {
             // Update unit labels based on which radio button is checked and set bmiCalc unittype
@@ -437,61 +476,5 @@ namespace Assignment3
             txtWeight.Text = string.Empty;
 
         }
-
-
-        private void DisplaySavings()
-        {
-            // Calculate savings
-            double[] savings = savingsCalc.CalculateSavings();
-
-            // Set labels
-            lblAmountPaid.Text = savings[0].ToString("F2");
-            lblAmountEarned.Text = savings[1].ToString("F2");
-            lblFinalBalance.Text = savings[2].ToString("F2");
-            lblTotalFees.Text = savings[3].ToString("F2");
-        }
-
-        private void btnCalcSavings_Click(object sender, EventArgs e)
-        {
-            if (ReadSavingsInput())
-            {
-                // If successful
-                DisplaySavings();
-            }
-        }
-
-        private void DisplayBMR()
-        {
-            double[] values = bmrCalc.GetValues();
-            double bmr = values[0];
-            double maintainWeight = values[1];
-
-            listBoxBMR.Items.Clear();
-            listBoxBMR.Items.Add($"BMR RESULTS FOR {name}\n");
-            listBoxBMR.Items.Add("");
-            listBoxBMR.Items.Add($"Your BMR (calories/day) {bmr}");
-            listBoxBMR.Items.Add($"Calories to maintain your weight {maintainWeight}");
-            listBoxBMR.Items.Add($"Calories to lose 0,5 kg per week {maintainWeight - 500}");
-            listBoxBMR.Items.Add($"Calories to lose 1 kg per week {maintainWeight - 1000}");
-            listBoxBMR.Items.Add($"Calories to gain 0,5 kg per week {maintainWeight + 500}");
-            listBoxBMR.Items.Add($"Calories to gain 1 kg per week {maintainWeight + 1000}");
-            listBoxBMR.Items.Add("");
-            listBoxBMR.Items.Add("Losing more than 1000 calories per day is to be avoided"); // i guess you mean losing more than 1 kg, but oh well
-        }
-        private void btnCalcBMR_Click(object sender, EventArgs e)
-        {
-            if (ReadBMRInput())
-            {
-                // If successful
-                DisplayBMR();
-            }
-        }
-
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }

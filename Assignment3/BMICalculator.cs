@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assignment3
+﻿namespace Assignment3
 {
     class BMICalculator
     {
-        private string name = "No Name";
         private double height = 0; // m or in 
         private double weight = 0;
         private UnitTypes unit = UnitTypes.American;
@@ -50,12 +43,6 @@ namespace Assignment3
             return new double[2] { lowerWeight, higherWeight };
         }
         // Getters and setters
-        public string Name
-        {
-            get => name;
-            set => name = value;
-        }
-
         public double Height
         {
             get => height;

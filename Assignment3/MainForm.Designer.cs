@@ -48,7 +48,7 @@ namespace Assignment3
             this.lblBMI = new System.Windows.Forms.Label();
             this.lblWeightCategoryTitle = new System.Windows.Forms.Label();
             this.lblYourBMI = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxBMI = new System.Windows.Forms.GroupBox();
             this.txtHeightFt = new System.Windows.Forms.TextBox();
             this.groupBoxSaving = new System.Windows.Forms.GroupBox();
             this.txtFees = new System.Windows.Forms.TextBox();
@@ -72,27 +72,27 @@ namespace Assignment3
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxBMR = new System.Windows.Forms.GroupBox();
-            this.groupBoxGender = new System.Windows.Forms.GroupBox();
-            this.rbtnFemale = new System.Windows.Forms.RadioButton();
-            this.rbtnMale = new System.Windows.Forms.RadioButton();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtAge = new System.Windows.Forms.TextBox();
-            this.groupBoxActivityLevel = new System.Windows.Forms.GroupBox();
-            this.rbtnActivitySedentary = new System.Windows.Forms.RadioButton();
-            this.rbtnActivityLight = new System.Windows.Forms.RadioButton();
-            this.rbtnActivityModerate = new System.Windows.Forms.RadioButton();
-            this.rbtnActivityVery = new System.Windows.Forms.RadioButton();
-            this.rbtnActivityExtra = new System.Windows.Forms.RadioButton();
-            this.btnCalcBMR = new System.Windows.Forms.Button();
             this.listBoxBMR = new System.Windows.Forms.ListBox();
+            this.btnCalcBMR = new System.Windows.Forms.Button();
+            this.groupBoxActivityLevel = new System.Windows.Forms.GroupBox();
+            this.rbtnActivityExtra = new System.Windows.Forms.RadioButton();
+            this.rbtnActivityVery = new System.Windows.Forms.RadioButton();
+            this.rbtnActivityModerate = new System.Windows.Forms.RadioButton();
+            this.rbtnActivityLight = new System.Windows.Forms.RadioButton();
+            this.rbtnActivitySedentary = new System.Windows.Forms.RadioButton();
+            this.txtAge = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.groupBoxGender = new System.Windows.Forms.GroupBox();
+            this.rbtnMale = new System.Windows.Forms.RadioButton();
+            this.rbtnFemale = new System.Windows.Forms.RadioButton();
             this.groupBoxUnit.SuspendLayout();
             this.groupBoxResults.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxBMI.SuspendLayout();
             this.groupBoxSaving.SuspendLayout();
             this.groupBoxFutureValue.SuspendLayout();
             this.groupBoxBMR.SuspendLayout();
-            this.groupBoxGender.SuspendLayout();
             this.groupBoxActivityLevel.SuspendLayout();
+            this.groupBoxGender.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblName
@@ -135,7 +135,7 @@ namespace Assignment3
             this.txtHeight.Location = new System.Drawing.Point(224, 46);
             this.txtHeight.Name = "txtHeight";
             this.txtHeight.Size = new System.Drawing.Size(65, 20);
-            this.txtHeight.TabIndex = 4;
+            this.txtHeight.TabIndex = 5;
             this.txtHeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // txtWeight
@@ -143,7 +143,7 @@ namespace Assignment3
             this.txtWeight.Location = new System.Drawing.Point(224, 73);
             this.txtWeight.Name = "txtWeight";
             this.txtWeight.Size = new System.Drawing.Size(65, 20);
-            this.txtWeight.TabIndex = 5;
+            this.txtWeight.TabIndex = 6;
             this.txtWeight.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // groupBoxUnit
@@ -153,7 +153,7 @@ namespace Assignment3
             this.groupBoxUnit.Location = new System.Drawing.Point(313, 12);
             this.groupBoxUnit.Name = "groupBoxUnit";
             this.groupBoxUnit.Size = new System.Drawing.Size(150, 74);
-            this.groupBoxUnit.TabIndex = 6;
+            this.groupBoxUnit.TabIndex = 7;
             this.groupBoxUnit.TabStop = false;
             this.groupBoxUnit.Text = "Unit";
             // 
@@ -186,7 +186,7 @@ namespace Assignment3
             this.btnCalculateBMI.Location = new System.Drawing.Point(95, 118);
             this.btnCalculateBMI.Name = "btnCalculateBMI";
             this.btnCalculateBMI.Size = new System.Drawing.Size(212, 23);
-            this.btnCalculateBMI.TabIndex = 7;
+            this.btnCalculateBMI.TabIndex = 8;
             this.btnCalculateBMI.Text = "Calculate BMI";
             this.btnCalculateBMI.UseVisualStyleBackColor = true;
             this.btnCalculateBMI.Click += new System.EventHandler(this.btnCalculateBMI_Click);
@@ -220,22 +220,24 @@ namespace Assignment3
             // lblNormalRange
             // 
             this.lblNormalRange.AutoSize = true;
-            this.lblNormalRange.Location = new System.Drawing.Point(80, 120);
+            this.lblNormalRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.lblNormalRange.Location = new System.Drawing.Point(80, 136);
             this.lblNormalRange.MinimumSize = new System.Drawing.Size(300, 0);
             this.lblNormalRange.Name = "lblNormalRange";
-            this.lblNormalRange.Size = new System.Drawing.Size(300, 13);
+            this.lblNormalRange.Size = new System.Drawing.Size(300, 16);
             this.lblNormalRange.TabIndex = 4;
             this.lblNormalRange.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.label3.ForeColor = System.Drawing.Color.Green;
-            this.label3.Location = new System.Drawing.Point(80, 93);
+            this.label3.Location = new System.Drawing.Point(80, 109);
             this.label3.MaximumSize = new System.Drawing.Size(300, 0);
             this.label3.MinimumSize = new System.Drawing.Size(300, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(300, 13);
+            this.label3.Size = new System.Drawing.Size(300, 16);
             this.label3.TabIndex = 3;
             this.label3.Text = "Normal BMI is between 18.50 and 24.9";
             this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -269,28 +271,28 @@ namespace Assignment3
             this.lblYourBMI.TabIndex = 0;
             this.lblYourBMI.Text = "BMI";
             // 
-            // groupBox1
+            // groupBoxBMI
             // 
-            this.groupBox1.Controls.Add(this.txtHeightFt);
-            this.groupBox1.Controls.Add(this.lblHeight);
-            this.groupBox1.Controls.Add(this.lblName);
-            this.groupBox1.Controls.Add(this.txtName);
-            this.groupBox1.Controls.Add(this.lblWeight);
-            this.groupBox1.Controls.Add(this.txtWeight);
-            this.groupBox1.Controls.Add(this.txtHeight);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(295, 100);
-            this.groupBox1.TabIndex = 9;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "BMI Calculator";
+            this.groupBoxBMI.Controls.Add(this.txtHeightFt);
+            this.groupBoxBMI.Controls.Add(this.lblHeight);
+            this.groupBoxBMI.Controls.Add(this.lblName);
+            this.groupBoxBMI.Controls.Add(this.txtName);
+            this.groupBoxBMI.Controls.Add(this.lblWeight);
+            this.groupBoxBMI.Controls.Add(this.txtWeight);
+            this.groupBoxBMI.Controls.Add(this.txtHeight);
+            this.groupBoxBMI.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxBMI.Name = "groupBoxBMI";
+            this.groupBoxBMI.Size = new System.Drawing.Size(295, 100);
+            this.groupBoxBMI.TabIndex = 9;
+            this.groupBoxBMI.TabStop = false;
+            this.groupBoxBMI.Text = "BMI Calculator";
             // 
             // txtHeightFt
             // 
             this.txtHeightFt.Location = new System.Drawing.Point(153, 46);
             this.txtHeightFt.Name = "txtHeightFt";
             this.txtHeightFt.Size = new System.Drawing.Size(65, 20);
-            this.txtHeightFt.TabIndex = 6;
+            this.txtHeightFt.TabIndex = 4;
             this.txtHeightFt.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // groupBoxSaving
@@ -514,60 +516,30 @@ namespace Assignment3
             this.groupBoxBMR.Controls.Add(this.groupBoxGender);
             this.groupBoxBMR.Location = new System.Drawing.Point(12, 348);
             this.groupBoxBMR.Name = "groupBoxBMR";
-            this.groupBoxBMR.Size = new System.Drawing.Size(747, 198);
+            this.groupBoxBMR.Size = new System.Drawing.Size(753, 205);
             this.groupBoxBMR.TabIndex = 13;
             this.groupBoxBMR.TabStop = false;
             this.groupBoxBMR.Text = "BMR Calculator";
             // 
-            // groupBoxGender
+            // listBoxBMR
             // 
-            this.groupBoxGender.Controls.Add(this.rbtnMale);
-            this.groupBoxGender.Controls.Add(this.rbtnFemale);
-            this.groupBoxGender.Location = new System.Drawing.Point(7, 20);
-            this.groupBoxGender.Name = "groupBoxGender";
-            this.groupBoxGender.Size = new System.Drawing.Size(119, 74);
-            this.groupBoxGender.TabIndex = 0;
-            this.groupBoxGender.TabStop = false;
-            this.groupBoxGender.Text = "Gender";
+            this.listBoxBMR.Font = new System.Drawing.Font("Courier New", 9F);
+            this.listBoxBMR.FormattingEnabled = true;
+            this.listBoxBMR.ItemHeight = 15;
+            this.listBoxBMR.Location = new System.Drawing.Point(359, 26);
+            this.listBoxBMR.Name = "listBoxBMR";
+            this.listBoxBMR.Size = new System.Drawing.Size(388, 139);
+            this.listBoxBMR.TabIndex = 5;
             // 
-            // rbtnFemale
+            // btnCalcBMR
             // 
-            this.rbtnFemale.AutoSize = true;
-            this.rbtnFemale.Location = new System.Drawing.Point(7, 20);
-            this.rbtnFemale.Name = "rbtnFemale";
-            this.rbtnFemale.Size = new System.Drawing.Size(59, 17);
-            this.rbtnFemale.TabIndex = 0;
-            this.rbtnFemale.TabStop = true;
-            this.rbtnFemale.Text = "Female";
-            this.rbtnFemale.UseVisualStyleBackColor = true;
-            // 
-            // rbtnMale
-            // 
-            this.rbtnMale.AutoSize = true;
-            this.rbtnMale.Location = new System.Drawing.Point(7, 44);
-            this.rbtnMale.Name = "rbtnMale";
-            this.rbtnMale.Size = new System.Drawing.Size(48, 17);
-            this.rbtnMale.TabIndex = 1;
-            this.rbtnMale.TabStop = true;
-            this.rbtnMale.Text = "Male";
-            this.rbtnMale.UseVisualStyleBackColor = true;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 101);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(26, 13);
-            this.label6.TabIndex = 1;
-            this.label6.Text = "Age";
-            // 
-            // txtAge
-            // 
-            this.txtAge.Location = new System.Drawing.Point(56, 98);
-            this.txtAge.Name = "txtAge";
-            this.txtAge.Size = new System.Drawing.Size(70, 20);
-            this.txtAge.TabIndex = 2;
-            this.txtAge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.btnCalcBMR.Location = new System.Drawing.Point(99, 176);
+            this.btnCalcBMR.Name = "btnCalcBMR";
+            this.btnCalcBMR.Size = new System.Drawing.Size(254, 23);
+            this.btnCalcBMR.TabIndex = 4;
+            this.btnCalcBMR.Text = "Calculate BMR";
+            this.btnCalcBMR.UseVisualStyleBackColor = true;
+            this.btnCalcBMR.Click += new System.EventHandler(this.btnCalcBMR_Click);
             // 
             // groupBoxActivityLevel
             // 
@@ -576,56 +548,12 @@ namespace Assignment3
             this.groupBoxActivityLevel.Controls.Add(this.rbtnActivityModerate);
             this.groupBoxActivityLevel.Controls.Add(this.rbtnActivityLight);
             this.groupBoxActivityLevel.Controls.Add(this.rbtnActivitySedentary);
-            this.groupBoxActivityLevel.Location = new System.Drawing.Point(133, 20);
+            this.groupBoxActivityLevel.Location = new System.Drawing.Point(99, 20);
             this.groupBoxActivityLevel.Name = "groupBoxActivityLevel";
-            this.groupBoxActivityLevel.Size = new System.Drawing.Size(254, 141);
+            this.groupBoxActivityLevel.Size = new System.Drawing.Size(254, 150);
             this.groupBoxActivityLevel.TabIndex = 3;
             this.groupBoxActivityLevel.TabStop = false;
             this.groupBoxActivityLevel.Text = "Weekly activity level";
-            // 
-            // rbtnActivitySedentary
-            // 
-            this.rbtnActivitySedentary.AutoSize = true;
-            this.rbtnActivitySedentary.Location = new System.Drawing.Point(7, 20);
-            this.rbtnActivitySedentary.Name = "rbtnActivitySedentary";
-            this.rbtnActivitySedentary.Size = new System.Drawing.Size(170, 17);
-            this.rbtnActivitySedentary.TabIndex = 0;
-            this.rbtnActivitySedentary.TabStop = true;
-            this.rbtnActivitySedentary.Text = "Sedentary, Little or no exercise";
-            this.rbtnActivitySedentary.UseVisualStyleBackColor = true;
-            // 
-            // rbtnActivityLight
-            // 
-            this.rbtnActivityLight.AutoSize = true;
-            this.rbtnActivityLight.Location = new System.Drawing.Point(7, 44);
-            this.rbtnActivityLight.Name = "rbtnActivityLight";
-            this.rbtnActivityLight.Size = new System.Drawing.Size(228, 17);
-            this.rbtnActivityLight.TabIndex = 1;
-            this.rbtnActivityLight.TabStop = true;
-            this.rbtnActivityLight.Text = "Lightly active, Exercise 1 to 3 times a week";
-            this.rbtnActivityLight.UseVisualStyleBackColor = true;
-            // 
-            // rbtnActivityModerate
-            // 
-            this.rbtnActivityModerate.AutoSize = true;
-            this.rbtnActivityModerate.Location = new System.Drawing.Point(7, 68);
-            this.rbtnActivityModerate.Name = "rbtnActivityModerate";
-            this.rbtnActivityModerate.Size = new System.Drawing.Size(244, 17);
-            this.rbtnActivityModerate.TabIndex = 2;
-            this.rbtnActivityModerate.TabStop = true;
-            this.rbtnActivityModerate.Text = "Moderatly active, Exercise 4 to 5 times a week";
-            this.rbtnActivityModerate.UseVisualStyleBackColor = true;
-            // 
-            // rbtnActivityVery
-            // 
-            this.rbtnActivityVery.AutoSize = true;
-            this.rbtnActivityVery.Location = new System.Drawing.Point(7, 92);
-            this.rbtnActivityVery.Name = "rbtnActivityVery";
-            this.rbtnActivityVery.Size = new System.Drawing.Size(219, 17);
-            this.rbtnActivityVery.TabIndex = 3;
-            this.rbtnActivityVery.TabStop = true;
-            this.rbtnActivityVery.Text = "Very active, Exercise 6 to 7 times a week";
-            this.rbtnActivityVery.UseVisualStyleBackColor = true;
             // 
             // rbtnActivityExtra
             // 
@@ -638,34 +566,112 @@ namespace Assignment3
             this.rbtnActivityExtra.Text = "Extra active, Hard exercise or physical job";
             this.rbtnActivityExtra.UseVisualStyleBackColor = true;
             // 
-            // btnCalcBMR
+            // rbtnActivityVery
             // 
-            this.btnCalcBMR.Location = new System.Drawing.Point(83, 167);
-            this.btnCalcBMR.Name = "btnCalcBMR";
-            this.btnCalcBMR.Size = new System.Drawing.Size(212, 23);
-            this.btnCalcBMR.TabIndex = 4;
-            this.btnCalcBMR.Text = "Calculate BMR";
-            this.btnCalcBMR.UseVisualStyleBackColor = true;
-            this.btnCalcBMR.Click += new System.EventHandler(this.btnCalcBMR_Click);
+            this.rbtnActivityVery.AutoSize = true;
+            this.rbtnActivityVery.Location = new System.Drawing.Point(7, 92);
+            this.rbtnActivityVery.Name = "rbtnActivityVery";
+            this.rbtnActivityVery.Size = new System.Drawing.Size(219, 17);
+            this.rbtnActivityVery.TabIndex = 3;
+            this.rbtnActivityVery.TabStop = true;
+            this.rbtnActivityVery.Text = "Very active, Exercise 6 to 7 times a week";
+            this.rbtnActivityVery.UseVisualStyleBackColor = true;
             // 
-            // listBoxBMR
+            // rbtnActivityModerate
             // 
-            this.listBoxBMR.FormattingEnabled = true;
-            this.listBoxBMR.Location = new System.Drawing.Point(393, 26);
-            this.listBoxBMR.Name = "listBoxBMR";
-            this.listBoxBMR.Size = new System.Drawing.Size(348, 134);
-            this.listBoxBMR.TabIndex = 5;
+            this.rbtnActivityModerate.AutoSize = true;
+            this.rbtnActivityModerate.Location = new System.Drawing.Point(7, 68);
+            this.rbtnActivityModerate.Name = "rbtnActivityModerate";
+            this.rbtnActivityModerate.Size = new System.Drawing.Size(244, 17);
+            this.rbtnActivityModerate.TabIndex = 2;
+            this.rbtnActivityModerate.TabStop = true;
+            this.rbtnActivityModerate.Text = "Moderatly active, Exercise 4 to 5 times a week";
+            this.rbtnActivityModerate.UseVisualStyleBackColor = true;
+            // 
+            // rbtnActivityLight
+            // 
+            this.rbtnActivityLight.AutoSize = true;
+            this.rbtnActivityLight.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.rbtnActivityLight.Location = new System.Drawing.Point(7, 44);
+            this.rbtnActivityLight.Name = "rbtnActivityLight";
+            this.rbtnActivityLight.Size = new System.Drawing.Size(228, 17);
+            this.rbtnActivityLight.TabIndex = 1;
+            this.rbtnActivityLight.TabStop = true;
+            this.rbtnActivityLight.Text = "Lightly active, Exercise 1 to 3 times a week";
+            this.rbtnActivityLight.UseVisualStyleBackColor = true;
+            // 
+            // rbtnActivitySedentary
+            // 
+            this.rbtnActivitySedentary.AutoSize = true;
+            this.rbtnActivitySedentary.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.rbtnActivitySedentary.Location = new System.Drawing.Point(7, 20);
+            this.rbtnActivitySedentary.Name = "rbtnActivitySedentary";
+            this.rbtnActivitySedentary.Size = new System.Drawing.Size(170, 17);
+            this.rbtnActivitySedentary.TabIndex = 0;
+            this.rbtnActivitySedentary.TabStop = true;
+            this.rbtnActivitySedentary.Text = "Sedentary, Little or no exercise";
+            this.rbtnActivitySedentary.UseVisualStyleBackColor = true;
+            // 
+            // txtAge
+            // 
+            this.txtAge.Location = new System.Drawing.Point(56, 98);
+            this.txtAge.Name = "txtAge";
+            this.txtAge.Size = new System.Drawing.Size(37, 20);
+            this.txtAge.TabIndex = 2;
+            this.txtAge.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(7, 101);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(26, 13);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Age";
+            // 
+            // groupBoxGender
+            // 
+            this.groupBoxGender.Controls.Add(this.rbtnMale);
+            this.groupBoxGender.Controls.Add(this.rbtnFemale);
+            this.groupBoxGender.Location = new System.Drawing.Point(7, 20);
+            this.groupBoxGender.Name = "groupBoxGender";
+            this.groupBoxGender.Size = new System.Drawing.Size(86, 74);
+            this.groupBoxGender.TabIndex = 0;
+            this.groupBoxGender.TabStop = false;
+            this.groupBoxGender.Text = "Gender";
+            // 
+            // rbtnMale
+            // 
+            this.rbtnMale.AutoSize = true;
+            this.rbtnMale.Location = new System.Drawing.Point(7, 44);
+            this.rbtnMale.Name = "rbtnMale";
+            this.rbtnMale.Size = new System.Drawing.Size(48, 17);
+            this.rbtnMale.TabIndex = 1;
+            this.rbtnMale.TabStop = true;
+            this.rbtnMale.Text = "Male";
+            this.rbtnMale.UseVisualStyleBackColor = true;
+            // 
+            // rbtnFemale
+            // 
+            this.rbtnFemale.AutoSize = true;
+            this.rbtnFemale.Location = new System.Drawing.Point(7, 20);
+            this.rbtnFemale.Name = "rbtnFemale";
+            this.rbtnFemale.Size = new System.Drawing.Size(59, 17);
+            this.rbtnFemale.TabIndex = 0;
+            this.rbtnFemale.TabStop = true;
+            this.rbtnFemale.Text = "Female";
+            this.rbtnFemale.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 550);
+            this.ClientSize = new System.Drawing.Size(775, 558);
             this.Controls.Add(this.groupBoxBMR);
             this.Controls.Add(this.groupBoxFutureValue);
             this.Controls.Add(this.btnCalcSavings);
             this.Controls.Add(this.groupBoxSaving);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxBMI);
             this.Controls.Add(this.groupBoxResults);
             this.Controls.Add(this.btnCalculateBMI);
             this.Controls.Add(this.groupBoxUnit);
@@ -674,23 +680,22 @@ namespace Assignment3
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Super Calculator Calculator by Carl Lindman";
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBoxUnit.ResumeLayout(false);
             this.groupBoxUnit.PerformLayout();
             this.groupBoxResults.ResumeLayout(false);
             this.groupBoxResults.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxBMI.ResumeLayout(false);
+            this.groupBoxBMI.PerformLayout();
             this.groupBoxSaving.ResumeLayout(false);
             this.groupBoxSaving.PerformLayout();
             this.groupBoxFutureValue.ResumeLayout(false);
             this.groupBoxFutureValue.PerformLayout();
             this.groupBoxBMR.ResumeLayout(false);
             this.groupBoxBMR.PerformLayout();
-            this.groupBoxGender.ResumeLayout(false);
-            this.groupBoxGender.PerformLayout();
             this.groupBoxActivityLevel.ResumeLayout(false);
             this.groupBoxActivityLevel.PerformLayout();
+            this.groupBoxGender.ResumeLayout(false);
+            this.groupBoxGender.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -713,7 +718,7 @@ namespace Assignment3
         private System.Windows.Forms.Label lblWeightCategoryTitle;
         private System.Windows.Forms.Label lblYourBMI;
         private System.Windows.Forms.Label lblBMI;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxBMI;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblNormalRange;
         private System.Windows.Forms.Label lblWeightCategory;

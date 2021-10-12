@@ -444,11 +444,22 @@ namespace Assignment3
         // Eventhandler for changing unit
         private void radioButtonsUnit_CheckChanged(object sender, EventArgs e)
         {
+            // Variables for converting weigth and height when switching unit
+            double conversionW, conversionH;
+            bool success;
+
             // Update unit labels based on which radio button is checked and set bmiCalc unittype
             if (rbtnMetricUnit.Checked)
             {
                 lblHeight.Text = "Height (cm)";
                 lblWeight.Text = "Weight (kg)";
+
+                // Convert to metric if valid double is input
+                conversionW = ReadDouble(txtWeight.Text, out success);
+                if (success) 
+                {
+                    lblWeight.Text = new string(conversionW * 0.45359237);
+                }
 
                 // Sets unit in calculators
                 bmiCalc.Unit = UnitTypes.Metric;
@@ -462,6 +473,13 @@ namespace Assignment3
                 lblHeight.Text = "Height (ft, in)";
                 lblWeight.Text = "Weight (lbs)";
 
+                // Convert to imperial if valid double is input
+                conversionW = ReadDouble(txtWeight.Text, out success);
+                if (success) 
+                {
+                    lblWeight.Text = new string(conversionW * 2.20462262);
+                }
+
                 // Sets unit in calculators
                 bmiCalc.Unit = UnitTypes.American;
                 bmrCalc.Unit = UnitTypes.American;
@@ -473,7 +491,6 @@ namespace Assignment3
             // Clear input fields
             txtHeight.Text = string.Empty;
             txtHeightFt.Text = string.Empty;
-            txtWeight.Text = string.Empty;
 
         }
     }

@@ -179,7 +179,6 @@ namespace Assignment3
             this.rbtnMetricUnit.TabStop = true;
             this.rbtnMetricUnit.Text = "Metric Unit (kg, cm)";
             this.rbtnMetricUnit.UseVisualStyleBackColor = true;
-            this.rbtnMetricUnit.CheckedChanged += new System.EventHandler(this.radioButtonsUnit_CheckChanged);
             // 
             // btnCalculateBMI
             // 

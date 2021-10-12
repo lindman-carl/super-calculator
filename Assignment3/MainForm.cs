@@ -445,7 +445,7 @@ namespace Assignment3
         private void radioButtonsUnit_CheckChanged(object sender, EventArgs e)
         {
             // Variables for converting weigth and height when switching unit
-            double conversionW, conversionH;
+            double conversionW, conversionH, conversionHft;
             bool success;
 
             // Update unit labels based on which radio button is checked and set bmiCalc unittype
@@ -458,8 +458,30 @@ namespace Assignment3
                 conversionW = ReadDouble(txtWeight.Text, out success);
                 if (success) 
                 {
-                    lblWeight.Text = new string(conversionW * 0.45359237);
+                    txtWeight.Text = Math.Round((conversionW * 0.45359237), 2).ToString();
                 }
+                else
+                {
+                    // If it wasn't valid then just make it empty
+                    txtWeight.Text = string.Empty;
+                }
+
+                // Convert to metric
+                conversionH = ReadDouble(txtHeight.Text, out success);
+                if (success)
+                {
+                    // Multiply by 2.54 to convert inches to cm
+                    conversionH *= 2.54;
+                }
+
+                conversionHft = ReadDouble(txtHeightFt.Text, out success);
+                if (success)
+                {
+                    //
+                    conversionH += conversionHft * 12 * 2.54;
+                }
+
+                txtHeight.Text = conversionH.ToString();
 
                 // Sets unit in calculators
                 bmiCalc.Unit = UnitTypes.Metric;
@@ -477,8 +499,26 @@ namespace Assignment3
                 conversionW = ReadDouble(txtWeight.Text, out success);
                 if (success) 
                 {
-                    lblWeight.Text = new string(conversionW * 2.20462262);
+                    txtWeight.Text = Math.Round((conversionW * 2.20462262), 2).ToString();
                 }
+                else
+                {
+                    // If it wasn't valid then just make it empty
+                    txtWeight.Text = string.Empty;
+                }
+
+                // Convert height
+                conversionH = ReadDouble(txtHeight.Text, out success);
+                if (success)
+                {
+                    double ft, inches;
+                    inches = conversionH * 0.393700787;
+                    ft = Math.Floor(inches / 12);
+                    inches = Math.Round(inches % 12, 2);
+                    txtHeightFt.Text = ft.ToString();
+                    txtHeight.Text = inches.ToString();
+                }
+
 
                 // Sets unit in calculators
                 bmiCalc.Unit = UnitTypes.American;
@@ -487,10 +527,6 @@ namespace Assignment3
                 // Show feet textbox
                 txtHeightFt.Show();
             }
-
-            // Clear input fields
-            txtHeight.Text = string.Empty;
-            txtHeightFt.Text = string.Empty;
 
         }
     }
